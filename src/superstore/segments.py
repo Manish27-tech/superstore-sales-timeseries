@@ -157,7 +157,11 @@ def plot_pareto(segmented: pd.DataFrame, output_dir: Path = FIGURES) -> Path:
         alpha=0.85,
         label="Share of catalogue",
     )
-    axes[1].set_title("A-class: 20% of the catalogue, 80% of revenue")
+    a_row = class_summary.loc["A"]
+    axes[1].set_title(
+        f"A-class: {a_row['product_share']:.0%} of the catalogue, "
+        f"{a_row['revenue_share']:.0%} of revenue"
+    )
     axes[1].yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0, decimals=0))
     axes[1].legend(fontsize=8, frameon=False)
     return _save(fig, "14_pareto_concentration.png", output_dir)
