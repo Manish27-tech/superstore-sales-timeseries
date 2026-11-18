@@ -166,7 +166,7 @@ def plot_anomaly_explanations(anomalies: pd.DataFrame, output_dir: Path = FIGURE
     axes[0].barh(labels[::-1], frame["z_score"][::-1], color=colors[::-1])
     axes[0].axvline(0, color="black", lw=0.9)
     axes[0].set_xlabel("Robust z-score vs same week last year")
-    axes[0].set_title("The eight largest deviations")
+    axes[0].set_title(f"The {len(frame)} flagged weeks, ranked by deviation")
 
     axes[1].scatter(
         frame["largest_order_share"],
