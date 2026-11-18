@@ -38,8 +38,8 @@ PROFIT = "Profit"
 QUANTITY = "Quantity"
 
 # Weekly series: Monday-starting weeks. The last 13 complete weeks are held out,
-# starting with the week of 2017-10-02 (which contains the Black Friday run-up).
-TEST_START = "2017-10-02"
+# starting with the week of 2017-09-25 (which contains the Black Friday run-up).
+TEST_START = "2017-09-25"
 HORIZON_WEEKS = 13
 BACKTEST_FOLDS = 6
 
