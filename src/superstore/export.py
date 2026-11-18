@@ -45,12 +45,26 @@ PRODUCT_COLUMNS = (
 )
 
 
+def weekday_profile(orders: pd.DataFrame) -> pd.DataFrame:
+    """Revenue and volume by weekday, in calendar order."""
+    order = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    profile = (
+        orders.groupby("Order Weekday")
+        .agg(revenue=("Sales", "sum"), orders=("Order ID", "nunique"), lines=("Sales", "size"))
+        .reindex(order)
+        .reset_index()
+    )
+    profile.columns = ["weekday", "revenue", "orders", "lines"]
+    return profile
+
+
 def export_tables(
     orders: pd.DataFrame,
     segmented: pd.DataFrame,
     forecast: pd.DataFrame,
     anomalies: pd.DataFrame,
     kpis: dict[str, Any],
+    metrics: dict[str, Any] | None = None,
     output_dir: Path = DATA_DASHBOARD,
 ) -> dict[str, Path]:
     """Write every dashboard feed and return the paths that were written."""
@@ -66,9 +80,12 @@ def export_tables(
     write_csv("weekly.csv", weekly_revenue(orders))
     write_csv("monthly.csv", monthly_revenue(orders))
     write_csv("monthly_category.csv", monthly_category_revenue(orders))
+    write_csv("weekday.csv", weekday_profile(orders))
     write_csv("products.csv", segmented[list(PRODUCT_COLUMNS)])
     write_csv("forecast.csv", forecast)
     write_csv("anomalies.csv", anomalies)
+    if metrics is not None and "backtest" in metrics:
+        write_csv("backtest.csv", pd.DataFrame(metrics["backtest"]))
 
     dimensions = {
         "categories": sorted(orders["Category"].unique().tolist()),

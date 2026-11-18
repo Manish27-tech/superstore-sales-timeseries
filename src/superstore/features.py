@@ -87,6 +87,7 @@ def monthly_revenue(frame: pd.DataFrame) -> pd.DataFrame:
         .sort_index()
     )
     grouped["margin"] = grouped["profit"] / grouped["revenue"]
+    grouped["aov"] = grouped["revenue"] / grouped["orders"]
     grouped.index.name = "month_start"
     return grouped.reset_index()
 

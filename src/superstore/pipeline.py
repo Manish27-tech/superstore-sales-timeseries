@@ -51,6 +51,7 @@ def build_kpis(
             "improvement_vs_naive_pct": metrics["improvement_vs_naive_pct"],
             "split": metrics["split"],
             "interval_coverage": metrics["interval_coverage"],
+            "feature_importance": metrics["feature_importance"],
             "diagnostics": diagnostics_summary,
         },
         "generated_by": "superstore-sales-timeseries",
@@ -116,6 +117,7 @@ def run_all(with_report: bool = True) -> dict[str, Any]:
             anomaly_table,
             kpis,
             output_dir=DATA_DASHBOARD,
+            metrics=metrics,
         ),
     )
 
