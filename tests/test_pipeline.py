@@ -25,7 +25,7 @@ def test_timeseries_summary_is_internally_consistent():
     summary = _load("timeseries_summary.json")
     assert 0 < summary["trend_strength"] < 1
     assert 0 < summary["seasonal_strength"] < 1
-    assert summary["strongest_month"] in {"November", "December"}
+    assert summary["strongest_month"] in {"Nov", "Dec"}
     assert summary["peak_to_trough"] > 3
 
 
