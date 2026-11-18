@@ -4,11 +4,9 @@ from __future__ import annotations
 
 import numpy as np
 import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
-
-from dashboard.theme import GREY, NAVY, ORANGE, PURPLE, apply_layout, fmt_pct
+from dashboard.theme import GREY, NAVY, ORANGE, PURPLE, apply_layout, fmt_pct, kpi_cards
 
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -50,7 +48,7 @@ def render(feed: dict) -> None:
                 colorbar={"title": "x year avg"},
             )
         )
-        st.plotly_chart(apply_layout(figure, 360, "Each month against its own year's average"), width="stretch")
+        st.plotly_chart(apply_layout(figure, 360, "Month vs that year's average"), width="stretch")
 
     with right:
         factors = timeseries["seasonal_factors"]
@@ -64,16 +62,23 @@ def render(feed: dict) -> None:
             )
         )
         bar.add_hline(y=1, line_color="black", line_width=1)
-        st.plotly_chart(apply_layout(bar, 360, "Seasonal factor: 1.0 is an average month"), width="stretch")
+        st.plotly_chart(apply_layout(bar, 360, "Seasonal factors"), width="stretch")
 
-    columns = st.columns(4)
-    columns[0].metric("Strongest month", timeseries["strongest_month"], f"{timeseries['strongest_factor']:.2f}x")
-    columns[1].metric("Weakest month", timeseries["weakest_month"], f"{timeseries['weakest_factor']:.2f}x")
-    columns[2].metric("Peak-to-trough", f"{timeseries['peak_to_trough']:.1f}x", "seasonal ratio")
-    columns[3].metric(
-        "Trend growth",
-        fmt_pct(timeseries["trend_growth"], 0),
-        "over the 24 months with a centred trend",
+    kpi_cards(
+        [
+            (
+                "Strongest month",
+                timeseries["strongest_month"],
+                f"{timeseries['strongest_factor']:.2f}x an average month",
+            ),
+            ("Weakest month", timeseries["weakest_month"], f"{timeseries['weakest_factor']:.2f}x an average month"),
+            ("Peak-to-trough", f"{timeseries['peak_to_trough']:.1f}x", "seasonal ratio"),
+            (
+                "Trend growth",
+                fmt_pct(timeseries["trend_growth"], 0),
+                "over the 24 months with a centred trend",
+            ),
+        ]
     )
 
     left, right = st.columns(2)
@@ -89,7 +94,7 @@ def render(feed: dict) -> None:
             )
         )
         st.plotly_chart(
-            apply_layout(line, 340, "Trailing twelve-month revenue"),
+            apply_layout(line, 340, "Trailing 12-month revenue"),
             width="stretch",
         )
 
@@ -124,7 +129,7 @@ def render(feed: dict) -> None:
         )
     )
     bar.update_yaxes(range=[0, weekday["revenue"].max() * 1.2])
-    st.plotly_chart(apply_layout(bar, 340, "Revenue by weekday of order"), width="stretch")
+    st.plotly_chart(apply_layout(bar, 340, "Revenue by weekday"), width="stretch")
     st.markdown(
         '<div class="warn"><b>Read this chart with suspicion.</b> Wednesday holds only '
         f'{fmt_pct(feed["kpis"]["sales"]["weekday_line_share"]["Wednesday"])} of order lines against '

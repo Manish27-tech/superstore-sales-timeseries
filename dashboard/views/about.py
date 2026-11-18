@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import streamlit as st
-
 from dashboard.theme import fmt_money, fmt_pct
 
 REPO_URL = "https://github.com/Manish27-tech/superstore-sales-timeseries"

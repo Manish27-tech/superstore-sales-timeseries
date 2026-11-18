@@ -48,7 +48,6 @@ from superstore.features import (
     feature_matrix,
     seasonal_naive,
     training_origins,
-    weekly_revenue,
 )
 
 MODEL_ARTIFACT = ARTIFACTS / "weekly_revenue_model.joblib"

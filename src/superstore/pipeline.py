@@ -8,8 +8,9 @@ state and `python run.py all` is safe to rerun at any point.
 from __future__ import annotations
 
 import time
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 import pandas as pd
 

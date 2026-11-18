@@ -149,7 +149,8 @@ def plot_backtest_folds(payload: dict[str, Any], output_dir: Path = FIGURES) -> 
         label="Gradient boosting",
     )
     ax.set_xticks(positions)
-    ax.set_xticklabels([f"Fold {int(fold)}\n{origin}" for fold, origin in zip(folds["fold"], folds["origin"], strict=True)])
+    labels = [f"Fold {int(fold)}\n{origin}" for fold, origin in zip(folds["fold"], folds["origin"], strict=True)]
+    ax.set_xticklabels(labels)
     ax.set_ylabel("RMSE (USD per week)")
     ax.yaxis.set_major_formatter(
         matplotlib.ticker.FuncFormatter(lambda value, _: f"${value/1000:.0f}k")

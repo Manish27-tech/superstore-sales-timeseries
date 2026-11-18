@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import plotly.graph_objects as go
 import streamlit as st
-
 from dashboard.theme import NAVY, ORANGE, PURPLE, apply_layout, fmt_money, fmt_pct
 
 
@@ -108,7 +107,7 @@ def render(feed: dict) -> None:
         scatter.update_xaxes(tickformat=".0%", title="Share of the week from its largest order line")
         scatter.update_yaxes(title="Robust z-score")
         st.plotly_chart(
-            apply_layout(scatter, 340, "Big spikes and big single orders move together"),
+            apply_layout(scatter, 340, "Spikes vs single-order share"),
             width="stretch",
         )
 

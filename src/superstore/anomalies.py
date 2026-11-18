@@ -24,7 +24,6 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from superstore.config import FIGURE_DPI, FIGURES, PALETTE, PROFIT, REPORTS, TARGET  # noqa: E402
-from superstore.features import weekly_revenue  # noqa: E402
 
 Z_THRESHOLD = 3.5
 

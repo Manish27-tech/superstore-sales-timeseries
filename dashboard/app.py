@@ -29,7 +29,6 @@ TABS = (
     ("About", about.render),
 )
 
-
 def main() -> None:
     st.set_page_config(
         page_title="Superstore sales time series",
@@ -65,15 +64,11 @@ def main() -> None:
             f"{feed['dimensions']['date_min']} to {feed['dimensions']['date_max']}"
         )
         st.divider()
-        st.markdown("### Pages")
-        st.markdown(
-            "- **Overview** level, growth and mix\n"
-            "- **Seasonality** trend and calendar effects\n"
-            "- **Products** Pareto and behavioural segments\n"
-            "- **Forecast** 13-week model and its errors\n"
-            "- **Anomalies** weeks that broke the pattern\n"
-            "- **Explore** filter and download\n"
-            "- **About** method, limits, links"
+        section = st.radio(
+            "Section",
+            [label for label, _ in TABS],
+            index=0,
+            label_visibility="collapsed",
         )
         st.divider()
         st.caption(
@@ -81,10 +76,10 @@ def main() -> None:
             "The raw data is not committed; the dashboard feed is."
         )
 
-    tabs = st.tabs([label for label, _ in TABS])
-    for tab, (_, render) in zip(tabs, TABS, strict=True):
-        with tab:
+    for label, render in TABS:
+        if label == section:
             render(feed)
+            break
 
     st.divider()
     st.caption(

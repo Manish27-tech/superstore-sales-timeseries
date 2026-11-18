@@ -5,8 +5,7 @@ from __future__ import annotations
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-
-from dashboard.theme import GREY, NAVY, ORANGE, PURPLE, apply_layout, fmt_compact, fmt_money, fmt_pct
+from dashboard.theme import GREY, NAVY, ORANGE, PURPLE, apply_layout, fmt_money, fmt_pct, kpi_cards
 
 MODEL_LABELS = {
     "seasonal_naive": "Seasonal naive",
@@ -29,15 +28,21 @@ def render(feed: dict) -> None:
         "training period, never the hold-out."
     )
 
-    columns = st.columns(5)
-    columns[0].metric("Selected model", MODEL_LABELS.get(payload["selected_model"], payload["selected_model"]))
-    columns[1].metric("Hold-out RMSE", fmt_money(test["rmse"]), f"MASE {test['mase']:.2f}")
-    columns[2].metric("vs seasonal naive", f"{payload['improvement_vs_naive_pct']:.1f}%", "lower RMSE")
-    columns[3].metric("MAPE", f"{test['mape']:.1f}%", "mean absolute % error")
-    columns[4].metric(
-        "Interval coverage",
-        fmt_pct(payload["interval_coverage"], 0),
-        "nominal 90%",
+    kpi_cards(
+        [
+            (
+                "Selected model",
+                MODEL_LABELS.get(payload["selected_model"], payload["selected_model"]),
+                "walk-forward selection",
+            ),
+            ("Hold-out RMSE", fmt_money(test["rmse"]), f"MASE {test['mase']:.2f}"),
+            ("vs seasonal naive", f"{payload['improvement_vs_naive_pct']:.1f}%", "lower RMSE"),
+            ("MAPE", f"{test['mape']:.1f}%", "mean absolute % error"),
+        ]
+    )
+    st.caption(
+        f"The 5-95% error band covered {fmt_pct(payload['interval_coverage'], 0)} of held-out weeks "
+        "against a nominal 90%."
     )
 
     figure = go.Figure()
@@ -170,7 +175,7 @@ def render(feed: dict) -> None:
                 hovertemplate="%{y}<br>+%{x:,.0f} RMSE when shuffled<extra></extra>",
             )
         )
-        st.plotly_chart(apply_layout(bar, 320, "Permutation importance (held-out)"), width="stretch")
+        st.plotly_chart(apply_layout(bar, 320, "Feature importance"), width="stretch")
 
     st.markdown("#### What would actually improve this")
     st.markdown(

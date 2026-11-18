@@ -5,7 +5,6 @@ from __future__ import annotations
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
-
 from dashboard.theme import (
     CATEGORY_COLORS,
     GREY,
@@ -15,6 +14,7 @@ from dashboard.theme import (
     fmt_compact,
     fmt_money,
     fmt_pct,
+    kpi_cards,
 )
 
 
@@ -30,12 +30,22 @@ def render(feed: dict) -> None:
         "Every figure below is computed by the pipeline and committed with the code."
     )
 
-    columns = st.columns(5)
-    columns[0].metric("Revenue", fmt_compact(kpis["total_sales"]), f"{kpis['yoy_growth']['2017'] * 100:+.1f}% in 2017")
-    columns[1].metric("Profit", fmt_compact(kpis["total_profit"]), f"{kpis['margin'] * 100:.1f}% margin")
-    columns[2].metric("Orders", f"{kpis['orders']:,}", f"{kpis['customers']:,} customers")
-    columns[3].metric("Mean order value", fmt_money(kpis["mean_order_value"]), "median " + fmt_money(kpis["median_order_value"]))
-    columns[4].metric("Products", f"{kpis['products']:,}", f"{kpis['products_for_80pct']} make 80% of sales")
+    kpi_cards(
+        [
+            ("Revenue", fmt_compact(kpis["total_sales"]), f"{kpis['yoy_growth']['2017'] * 100:+.1f}% in 2017"),
+            ("Profit", fmt_compact(kpis["total_profit"]), f"{kpis['margin'] * 100:.1f}% margin"),
+            ("Orders", f"{kpis['orders']:,}", f"{kpis['customers']:,} customers"),
+            (
+                "Mean order value",
+                fmt_money(kpis["mean_order_value"]),
+                "median " + fmt_money(kpis["median_order_value"]),
+            ),
+        ]
+    )
+    st.caption(
+        f"{kpis['products']:,} products across {kpis['date_min'][:4]}-{kpis['date_max'][:4]}. "
+        f"{kpis['products_for_80pct']} of them generate 80% of revenue."
+    )
 
     monthly["rolling_12"] = monthly["revenue"].rolling(12, min_periods=6).mean()
     figure = go.Figure()
@@ -58,7 +68,7 @@ def render(feed: dict) -> None:
         )
     )
     st.plotly_chart(
-        apply_layout(figure, 400, "Revenue compounds, but individual months are lumpy"),
+        apply_layout(figure, 400, "Monthly revenue and 12-month average"),
         width="stretch",
     )
 
@@ -75,7 +85,7 @@ def render(feed: dict) -> None:
         )
         area.update_traces(hovertemplate="%{x|%b %Y}<br>$%{y:,.0f}<extra></extra>")
         st.plotly_chart(
-            apply_layout(area, 380, "Technology leads every year; Office Supplies rebounds in 2017"),
+            apply_layout(area, 380, "Revenue by category"),
             width="stretch",
         )
 
@@ -123,7 +133,7 @@ def render(feed: dict) -> None:
         )
         bar.update_layout(coloraxis_showscale=False)
         bar.update_traces(hovertemplate="$%{x:,.0f}<extra></extra>")
-        st.plotly_chart(apply_layout(bar, 420, "Top ten sub-categories"), width="stretch")
+        st.plotly_chart(apply_layout(bar, 420, "Top sub-categories"), width="stretch")
 
     with right:
         by_segment = products.groupby("segment")["revenue"].sum().reset_index()
@@ -141,10 +151,11 @@ def render(feed: dict) -> None:
             },
         )
         donut.update_traces(textinfo="percent", hovertemplate="%{label}<br>$%{value:,.0f}<extra></extra>")
-        st.plotly_chart(apply_layout(donut, 420, "Where revenue sits by product segment"), width="stretch")
+        st.plotly_chart(apply_layout(donut, 420, "Product segments"), width="stretch")
 
     st.markdown(
-        f'<div class="callout">Seasonality explains <b>{fmt_pct(feed["kpis"]["timeseries"]["seasonal_strength"], 0)}</b> '
+        f'<div class="callout">Seasonality explains '
+        f'<b>{fmt_pct(feed["kpis"]["timeseries"]["seasonal_strength"], 0)}</b> '
         f'of the detrended variance, and the trend explains '
         f'<b>{fmt_pct(feed["kpis"]["timeseries"]["trend_strength"], 0)}</b> of the deseasonalised variance. '
         f'But {fmt_pct(kpis["quiet_days_share"], 0)} of calendar days record no sale at all, and a single '

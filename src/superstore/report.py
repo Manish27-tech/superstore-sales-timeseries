@@ -42,9 +42,7 @@ def build_report(
     weakest = timeseries["weakest_month"]
     test = metrics["test"]
     naive = metrics["test_all_models"]["seasonal_naive"]
-    ridge = metrics["test_all_models"]["ridge_regression"]
     gb = metrics["test_all_models"]["gradient_boosting"]
-    selected = metrics["selected_model"]
 
     lines = [
         "# Superstore product sales: a four-year time series",
@@ -116,7 +114,7 @@ def build_report(
         "",
         "## Products: concentration, behaviour and margin",
         "",
-        f"![Pareto](figures/14_pareto_concentration.png)",
+        "![Pareto](figures/14_pareto_concentration.png)",
         "",
         f"The catalogue splits into four behavioural groups from a k-means fit on scale, growth, "
         f"volatility and margin. Anchors are {_pct(segments['segments']['Anchor products']['revenue_share'])} "
@@ -216,7 +214,6 @@ def build_report(
 def build_model_card(metrics: dict[str, Any], diagnostics: dict[str, Any]) -> str:
     """A short model card: what it does, what it must not be used for, how it fails."""
     test = metrics["test"]
-    naive = metrics["test_all_models"]["seasonal_naive"]
     rows = [
         "| Model | RMSE | MAE | MAPE | MASE | R² |",
         "|---|---|---|---|---|---|",
@@ -240,7 +237,7 @@ def build_model_card(metrics: dict[str, Any], diagnostics: dict[str, Any]) -> st
             "",
             "## What it is",
             "",
-            f"- **Task:** forecast total weekly sales revenue 1-13 weeks ahead from a fixed origin.",
+            "- **Task:** forecast total weekly sales revenue 1-13 weeks ahead from a fixed origin.",
             f"- **Selected model:** {metrics['selected_model'].replace('_', ' ')} on log1p revenue, "
             "chosen by mean walk-forward RMSE.",
             f"- **Training data:** {metrics['split']['train_weeks']} weekly periods ending "
@@ -258,7 +255,7 @@ def build_model_card(metrics: dict[str, Any], diagnostics: dict[str, Any]) -> st
             "",
             "## Calibration and uncertainty",
             "",
-            f"- Intervals are empirical 5-95% residual quantiles per horizon from the walk-forward folds.",
+            "- Intervals are empirical 5-95% residual quantiles per horizon from the walk-forward folds.",
             f"- Observed coverage on the held-out weeks: {_pct(diagnostics['interval_coverage'])} "
             "(nominal 90%). The interval is too narrow for a level shift of the size seen in Q4 2017.",
             "",
@@ -314,7 +311,14 @@ def generate_reports(
 
 def load_summaries(reports_dir: Path = REPORTS) -> dict[str, Any]:
     """Read the JSON artefacts back for the pipeline's report step."""
-    names = ("eda_summary", "timeseries_summary", "segments_summary", "anomalies_summary", "metrics", "diagnostics_summary")
+    names = (
+        "eda_summary",
+        "timeseries_summary",
+        "segments_summary",
+        "anomalies_summary",
+        "metrics",
+        "diagnostics_summary",
+    )
     loaded: dict[str, Any] = {}
     for name in names:
         path = reports_dir / f"{name}.json"

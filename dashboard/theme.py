@@ -48,11 +48,18 @@ PLOTLY_LAYOUT = {
 
 CUSTOM_CSS = """
 <style>
-    .block-container {padding-top: 1.6rem; padding-bottom: 2.5rem; max-width: 1250px;}
+    .block-container {padding: 1.1rem 1.1rem 2.5rem 1.1rem; max-width: 1200px;}
+    section[data-testid="stSidebar"] {min-width: 260px; max-width: 290px;}
     h1, h2, h3 {letter-spacing: -0.01em;}
-    div[data-testid="stMetricValue"] {font-size: 1.55rem; color: #1B2A3A;}
-    div[data-testid="stMetricLabel"] {color: #5A6B7C;}
-    .kpi-note {color: #5A6B7C; font-size: 0.82rem;}
+    .kpi-grid {display: flex; flex-wrap: wrap; gap: 10px; margin: 0.2rem 0 0.9rem 0;}
+    .kpi-card {
+        flex: 1 1 150px; min-width: 140px; background: #FFFFFF;
+        border: 1px solid #E4EAF1; border-radius: 10px; padding: 0.7rem 0.85rem;
+        box-shadow: 0 1px 2px rgba(20, 40, 60, 0.04);
+    }
+    .kpi-label {font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; color: #5A6B7C;}
+    .kpi-value {font-size: 1.42rem; font-weight: 650; color: #17283A; line-height: 1.25;}
+    .kpi-note {font-size: 0.76rem; color: #6B7C8D;}
     .callout {
         background: #F2F6FA; border-left: 4px solid #2B5D8C;
         padding: 0.85rem 1rem; border-radius: 6px; font-size: 0.93rem;
@@ -64,6 +71,22 @@ CUSTOM_CSS = """
     footer {visibility: hidden;}
 </style>
 """
+
+
+def kpi_cards(items: list[tuple[str, str, str]]) -> None:
+    """Render responsive KPI cards that wrap on narrow screens.
+
+    Streamlit's own metric columns truncate their labels below about 1,000 CSS
+    pixels; these cards keep their labels readable and reflow on a laptop or a
+    phone-width window.
+    """
+    cards = "".join(
+        f'<div class="kpi-card"><div class="kpi-label">{label}</div>'
+        f'<div class="kpi-value">{value}</div>'
+        f'<div class="kpi-note">{note}</div></div>'
+        for label, value, note in items
+    )
+    st.markdown(f'<div class="kpi-grid">{cards}</div>', unsafe_allow_html=True)
 
 
 def fmt_money(value: float, digits: int = 0) -> str:
@@ -127,6 +150,6 @@ def apply_layout(figure, height: int = 380, title: str | None = None):
     """Apply the shared plotly layout to a figure and set its height."""
     figure.update_layout(**PLOTLY_LAYOUT, height=height)
     if title:
-        figure.update_layout(title={"text": title, "x": 0.01, "xanchor": "left", "font": {"size": 16}})
+        figure.update_layout(title={"text": title, "x": 0.0, "xanchor": "left", "font": {"size": 14}})
     figure.update_layout(showlegend=figure.layout.showlegend)
     return figure

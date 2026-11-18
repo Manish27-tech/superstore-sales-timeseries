@@ -6,8 +6,7 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
-
-from dashboard.theme import GREY, NAVY, ORANGE, SEGMENT_COLORS, apply_layout, fmt_money, fmt_pct
+from dashboard.theme import NAVY, ORANGE, SEGMENT_COLORS, apply_layout, fmt_pct, kpi_cards
 
 
 def pareto_frame(products):
@@ -30,14 +29,23 @@ def render(feed: dict) -> None:
         "volatility and margin."
     )
 
-    columns = st.columns(4)
-    for column, name in zip(columns, ("A", "B", "C"), strict=False):
-        column.metric(
-            f"Class {name}",
-            f"{summary['abc_products'][name]:,} products",
-            f"{fmt_pct(summary['abc_revenue_share'][name])} of revenue",
-        )
-    columns[3].metric("Anchor products", f"{summary['segments']['Anchor products']['products']:,}", f"{fmt_pct(summary['anchor_share'])} of revenue")
+    kpi_cards(
+        [
+            (
+                f"Class {name}",
+                f"{summary['abc_products'][name]:,} products",
+                f"{fmt_pct(summary['abc_revenue_share'][name])} of revenue",
+            )
+            for name in ("A", "B", "C")
+        ]
+        + [
+            (
+                "Anchor products",
+                f"{summary['segments']['Anchor products']['products']:,}",
+                f"{fmt_pct(summary['anchor_share'])} of revenue",
+            )
+        ]
+    )
 
     left, right = st.columns([1.1, 1])
     with left:
@@ -84,13 +92,14 @@ def render(feed: dict) -> None:
             labels={"segment": "", "revenue": "Revenue", "products": "products"},
         )
         bar.update_traces(texttemplate="%{text} products", textposition="outside")
-        st.plotly_chart(apply_layout(bar, 380, "Revenue by behavioural segment"), width="stretch")
+        st.plotly_chart(apply_layout(bar, 380, "Revenue by segment"), width="stretch")
 
     st.markdown("#### Every product, positioned by scale and growth")
     categories = sorted(products["category"].unique())
     selected_categories = st.multiselect("Category", categories, default=categories, key="product_categories")
+    segment_names = sorted(products["segment"].unique())
     selected_segments = st.multiselect(
-        "Segment", sorted(products["segment"].unique()), default=sorted(products["segment"].unique()), key="product_segments"
+        "Segment", segment_names, default=segment_names, key="product_segments"
     )
     filtered = products[
         products["category"].isin(selected_categories) & products["segment"].isin(selected_segments)

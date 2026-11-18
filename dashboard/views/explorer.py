@@ -5,8 +5,7 @@ from __future__ import annotations
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
-
-from dashboard.theme import NAVY, ORANGE, apply_layout, fmt_compact, fmt_money
+from dashboard.theme import NAVY, ORANGE, apply_layout, fmt_compact, fmt_money, kpi_cards
 
 
 def filter_months(monthly: pd.DataFrame, years: list[int]) -> pd.DataFrame:
@@ -26,8 +25,9 @@ def render(feed: dict) -> None:
     )
 
     years = st.multiselect("Years", available_years, default=available_years, key="explore_years")
+    category_names = sorted(categories.columns[1:].tolist())
     selected_categories = st.multiselect(
-        "Categories", sorted(categories.columns[1:].tolist()), default=sorted(categories.columns[1:].tolist()), key="explore_categories"
+        "Categories", category_names, default=category_names, key="explore_categories"
     )
 
     filtered = filter_months(monthly, years or available_years)
@@ -35,11 +35,18 @@ def render(feed: dict) -> None:
         st.info("No months in that selection.")
         return
 
-    columns = st.columns(4)
-    columns[0].metric("Revenue", fmt_compact(filtered["revenue"].sum()))
-    columns[1].metric("Profit", fmt_compact(filtered["profit"].sum()))
-    columns[2].metric("Margin", f"{filtered['profit'].sum() / filtered['revenue'].sum() * 100:.1f}%")
-    columns[3].metric("Orders", f"{int(filtered['orders'].sum()):,}")
+    kpi_cards(
+        [
+            ("Revenue", fmt_compact(filtered["revenue"].sum()), "in the selected months"),
+            ("Profit", fmt_compact(filtered["profit"].sum()), "before overheads"),
+            (
+                "Margin",
+                f"{filtered['profit'].sum() / filtered['revenue'].sum() * 100:.1f}%",
+                "profit over revenue",
+            ),
+            ("Orders", f"{int(filtered['orders'].sum()):,}", "grouped by order id"),
+        ]
+    )
 
     figure = go.Figure()
     figure.add_trace(
@@ -127,7 +134,7 @@ def render(feed: dict) -> None:
                 hovertemplate="%{x|%d %b %Y}<br>$%{y:,.0f}<extra></extra>",
             )
         )
-        st.plotly_chart(apply_layout(line, 320, "Every calendar day, including zero-sale days"), width="stretch")
+        st.plotly_chart(apply_layout(line, 320, "Daily revenue"), width="stretch")
         st.caption(
             f"{(span['revenue'] == 0).mean() * 100:.1f}% of days in this selection record no sale. "
             f"Busiest single day: {span.loc[span['revenue'].idxmax(), 'date'].strftime('%d %b %Y')} at "

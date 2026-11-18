@@ -20,7 +20,6 @@ import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 
 from superstore.config import FIGURE_DPI, FIGURES, PALETTE, REPORTS  # noqa: E402
-from superstore.features import monthly_revenue  # noqa: E402
 
 MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -139,7 +138,11 @@ def plot_decomposition(decomposed: pd.DataFrame, output_dir: Path = FIGURES) -> 
     axes[3].set_ylabel("Residual")
     axes[3].set_xlabel("Month")
     for ax in axes[:3]:
-        ax.yaxis.set_major_formatter(matplotlib.ticker.FuncFormatter(lambda v, _: f"${v/1000:.0f}k" if v > 1000 else f"{v:.2f}"))
+        ax.yaxis.set_major_formatter(
+            matplotlib.ticker.FuncFormatter(
+                lambda v, _: f"${v/1000:.0f}k" if v > 1000 else f"{v:.2f}"
+            )
+        )
     return _save(fig, "11_monthly_decomposition.png", output_dir)
 
 
