@@ -76,6 +76,12 @@ extract.
 The app is deployed on Streamlit Community Cloud from `dashboard/app.py`. See
 `docs/DEPLOYMENT.md` for the steps.
 
-## License
+## Troubleshooting
 
-MIT.
+- `FileNotFoundError: .../data/dashboard/kpis.json` — run `python run.py all`.
+- `ValueError: ... sha256` — the pinned extract changed; check `config.DATASET_SHA256`.
+- Streamlit shows a missing-module error — install `requirements.txt`, not just the
+  dashboard extras.
+- Tests fail with `FileNotFoundError: reports/metrics.json` — run the pipeline
+  once before `pytest`.
+
