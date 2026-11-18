@@ -36,6 +36,20 @@ HISTORY_FEATURES = (
     "target_lag104",
     "origin_yoy_growth",
 )
+
+# The forecaster deliberately uses a compact subset. In walk-forward tests the
+# wider set let a linear model extrapolate a trend index far outside its
+# training range; these eight features are stable across every backtest window.
+FORECAST_FEATURES = (
+    "origin_roll13",
+    "target_lag52",
+    "target_week_of_year_sin",
+    "target_week_of_year_cos",
+    "target_month_sin",
+    "target_month_cos",
+    "target_quarter",
+    "horizon",
+)
 NUMERIC_FEATURES = HISTORY_FEATURES + CALENDAR_FEATURES
 
 
@@ -238,8 +252,8 @@ def build_origin_panel(
 
 
 def feature_matrix(panel: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
-    """Split a panel into the numeric design matrix and the target."""
-    X = panel[list(NUMERIC_FEATURES)].astype("float32")
+    """Split a panel into the design matrix and the target."""
+    X = panel[list(FORECAST_FEATURES)].astype("float32")
     y = panel["y"].astype("float64")
     return X, y
 
