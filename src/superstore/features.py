@@ -143,7 +143,7 @@ def product_summary(frame: pd.DataFrame) -> pd.DataFrame:
                 "last_sale": last,
                 "mean_monthly": float(full.mean()),
                 "growth": float(growth) if np.isfinite(growth) else 0.0,
-                "volatility": float(full.std() / full.mean()) if full.mean() > 0 else 0.0,
+                "volatility": float(full.std(ddof=0) / full.mean()) if full.mean() > 0 else 0.0,
                 "share_of_total": float(lines[TARGET].sum() / frame[TARGET].sum()),
             }
         )
