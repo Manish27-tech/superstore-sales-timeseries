@@ -1,0 +1,58 @@
+{
+  "rows": 9994,
+  "orders": 5009,
+  "customers": 793,
+  "products": 1862,
+  "date_min": "2014-01-03 00:00:00",
+  "date_max": "2017-12-30 00:00:00",
+  "weeks": 207,
+  "months": 48,
+  "total_sales": 2297200.86,
+  "total_profit": 286397.02,
+  "margin": 0.1247,
+  "mean_order_value": 458.61,
+  "median_order_value": 151.96,
+  "best_month": "November",
+  "best_weekday": "Monday",
+  "quietest_weekday": "Wednesday",
+  "category_share": {
+    "Technology": 0.364,
+    "Furniture": 0.323,
+    "Office Supplies": 0.313
+  },
+  "top_category": "Technology",
+  "top_subcategory": "Phones",
+  "worst_margin_subcategory": "Tables",
+  "best_margin_subcategory": "Labels",
+  "deepest_discount_share": 0.114,
+  "annual_revenue": {
+    "2014": 484247.5,
+    "2015": 470532.51,
+    "2016": 609205.6,
+    "2017": 733215.26
+  },
+  "yoy_growth": {
+    "2015": -0.0283,
+    "2016": 0.2947,
+    "2017": 0.2036
+  },
+  "top_product": "Canon imageCLASS 2200 Advanced Copier",
+  "top_product_revenue": 61599.82,
+  "products_for_80pct": 414,
+  "weekly_mean_revenue": 11052.65,
+  "weekly_max_revenue": 38176.81,
+  "busiest_week": "2014-03-17",
+  "quiet_days_share": 0.1516,
+  "return_line_share": 0.1872,
+  "discount_share": 0.5199,
+  "weekday_line_share": {
+    "Monday": 0.1872,
+    "Tuesday": 0.1107,
+    "Wednesday": 0.0371,
+    "Thursday": 0.1464,
+    "Friday": 0.1819,
+    "Saturday": 0.1656,
+    "Sunday": 0.1711
+  },
+  "weekday_artifact": "Wednesday holds only 4% of order lines, versus 10-19% for other days"
+}

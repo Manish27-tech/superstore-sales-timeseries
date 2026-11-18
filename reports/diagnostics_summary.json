@@ -1,0 +1,28 @@
+{
+  "weeks": 13,
+  "worst_week": "2017-10-23",
+  "worst_pct_error": 1.1704,
+  "best_week": "2017-11-20",
+  "best_pct_error": -0.182,
+  "mean_pct_error": -0.1025,
+  "median_abs_pct_error": 0.4682,
+  "weeks_within_20pct": 1,
+  "interval_coverage": 0.6154,
+  "interval_nominal": 0.9,
+  "under_predicted_weeks": 10,
+  "horizon_error": {
+    "1": 0.6102,
+    "2": -0.3451,
+    "3": -0.2411,
+    "4": -0.4682,
+    "5": 1.1704,
+    "6": -0.4766,
+    "7": -0.2423,
+    "8": -0.581,
+    "9": -0.182,
+    "10": -0.4969,
+    "11": -0.3121,
+    "12": 0.567,
+    "13": -0.3355
+  }
+}

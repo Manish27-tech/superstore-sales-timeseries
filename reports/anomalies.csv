@@ -1,0 +1,5 @@
+week_start,week_end,revenue,expected,deviation,z_score,direction,top_category,top_category_share,largest_order_value,largest_order_product,largest_order_share
+2016-03-07,2016-03-13,22184.76,2729.49,19455.27,7.74,spike,Technology,0.4924,4912.59,High Speed Automatic Electric Letter Opener,0.2214
+2017-03-20,2017-03-26,27125.48,3739.86,23385.61,6.75,spike,Technology,0.696,13999.96,Canon imageCLASS 2200 Advanced Copier,0.5161
+2016-09-26,2016-10-02,25858.35,4266.84,21591.51,5.4,spike,Technology,0.7846,17499.95,Canon imageCLASS 2200 Advanced Copier,0.6768
+2015-04-13,2015-04-19,12471.88,2810.24,9661.64,3.57,spike,Technology,0.4047,1447.65,Hoover Upright Vacuum With Dirt Cup,0.1161

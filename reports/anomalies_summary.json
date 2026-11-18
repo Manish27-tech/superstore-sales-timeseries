@@ -1,0 +1,50 @@
+{
+  "weeks_scored": 155,
+  "eligible_weeks": 97,
+  "threshold": 3.5,
+  "min_expected": 2000.0,
+  "min_deviation": 3000.0,
+  "anomalies": 4,
+  "spikes": 4,
+  "dips": 0,
+  "share_of_weeks": 0.0412,
+  "largest_single_order_share": 0.6768,
+  "top_anomalies": [
+    {
+      "week_start": "2016-03-07",
+      "direction": "spike",
+      "z_score": 7.74,
+      "revenue": 22184.76,
+      "expected": 2729.49,
+      "largest_order_value": 4912.59,
+      "largest_product": "High Speed Automatic Electric Letter Opener"
+    },
+    {
+      "week_start": "2017-03-20",
+      "direction": "spike",
+      "z_score": 6.75,
+      "revenue": 27125.48,
+      "expected": 3739.86,
+      "largest_order_value": 13999.96,
+      "largest_product": "Canon imageCLASS 2200 Advanced Copier"
+    },
+    {
+      "week_start": "2016-09-26",
+      "direction": "spike",
+      "z_score": 5.4,
+      "revenue": 25858.35,
+      "expected": 4266.84,
+      "largest_order_value": 17499.95,
+      "largest_product": "Canon imageCLASS 2200 Advanced Copier"
+    },
+    {
+      "week_start": "2015-04-13",
+      "direction": "spike",
+      "z_score": 3.57,
+      "revenue": 12471.88,
+      "expected": 2810.24,
+      "largest_order_value": 1447.65,
+      "largest_product": "Hoover Upright Vacuum With Dirt Cup"
+    }
+  ]
+}

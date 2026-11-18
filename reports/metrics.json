@@ -1,0 +1,154 @@
+{
+  "selected_model": "ridge_regression",
+  "selection_metric": "mean walk-forward RMSE inside the training period",
+  "selection_scores": {
+    "ridge_regression": 8039.88,
+    "gradient_boosting": 8581.48
+  },
+  "target_transform": "log1p",
+  "horizon_weeks": 13,
+  "split": {
+    "test_start": "2017-09-18 00:00:00",
+    "test_end": "2017-12-18 00:00:00",
+    "train_weeks": 194,
+    "test_weeks": 13
+  },
+  "test": {
+    "rmse": 10408.82,
+    "mae": 9089.42,
+    "mape": 46.37,
+    "bias": -6179.78,
+    "r2": -0.4286,
+    "n": 13,
+    "mase": 0.949
+  },
+  "test_all_models": {
+    "seasonal_naive": {
+      "rmse": 11719.02,
+      "mae": 9576.59,
+      "mape": 53.5,
+      "bias": -3066.81,
+      "r2": -0.8109,
+      "n": 13,
+      "mase": 1.0
+    },
+    "ridge_regression": {
+      "rmse": 10408.82,
+      "mae": 9089.42,
+      "mape": 46.37,
+      "bias": -6179.78,
+      "r2": -0.4286,
+      "n": 13,
+      "mase": 0.949
+    },
+    "gradient_boosting": {
+      "rmse": 9718.48,
+      "mae": 8030.24,
+      "mape": 41.41,
+      "bias": -4320.54,
+      "r2": -0.2454,
+      "n": 13,
+      "mase": 0.839
+    }
+  },
+  "improvement_vs_naive_pct": 11.18,
+  "feature_importance": [
+    {
+      "feature": "target_week_of_year_cos",
+      "importance_mean": 989.95,
+      "importance_std": 769.13
+    },
+    {
+      "feature": "target_quarter",
+      "importance_mean": 213.18,
+      "importance_std": 151.08
+    },
+    {
+      "feature": "target_lag52",
+      "importance_mean": 141.68,
+      "importance_std": 297.31
+    },
+    {
+      "feature": "target_month_sin",
+      "importance_mean": 111.32,
+      "importance_std": 258.79
+    },
+    {
+      "feature": "horizon",
+      "importance_mean": 109.98,
+      "importance_std": 129.41
+    },
+    {
+      "feature": "origin_roll13",
+      "importance_mean": 0.0,
+      "importance_std": 0.0
+    },
+    {
+      "feature": "target_week_of_year_sin",
+      "importance_mean": -148.19,
+      "importance_std": 429.35
+    },
+    {
+      "feature": "target_month_cos",
+      "importance_mean": -239.05,
+      "importance_std": 635.73
+    }
+  ],
+  "features": [
+    "origin_roll13",
+    "target_lag52",
+    "target_week_of_year_sin",
+    "target_week_of_year_cos",
+    "target_month_sin",
+    "target_month_cos",
+    "target_quarter",
+    "horizon"
+  ],
+  "interval_coverage": 0.6154,
+  "backtest": [
+    {
+      "fold": 1,
+      "origin": "2016-09-19",
+      "rows_train": 91,
+      "rmse_naive": 9103.55,
+      "rmse_ridge": 13282.68,
+      "rmse_gb": 13687.87,
+      "mae_naive": 6805.51,
+      "mae_ridge": 11366.5,
+      "mae_gb": 11828.63
+    },
+    {
+      "fold": 2,
+      "origin": "2016-12-19",
+      "rows_train": 130,
+      "rmse_naive": 9578.71,
+      "rmse_ridge": 7160.58,
+      "rmse_gb": 9151.66,
+      "mae_naive": 6977.18,
+      "mae_ridge": 4388.85,
+      "mae_gb": 7249.5
+    },
+    {
+      "fold": 3,
+      "origin": "2017-03-20",
+      "rows_train": 169,
+      "rmse_naive": 7448.83,
+      "rmse_ridge": 4509.88,
+      "rmse_gb": 5972.96,
+      "mae_naive": 5735.99,
+      "mae_ridge": 3481.99,
+      "mae_gb": 5206.86
+    },
+    {
+      "fold": 4,
+      "origin": "2017-06-19",
+      "rows_train": 208,
+      "rmse_naive": 7625.16,
+      "rmse_ridge": 7206.36,
+      "rmse_gb": 5513.45,
+      "mae_naive": 6408.39,
+      "mae_ridge": 5740.94,
+      "mae_gb": 4381.55
+    }
+  ]
+}

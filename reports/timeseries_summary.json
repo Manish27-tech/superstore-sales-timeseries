@@ -1,0 +1,28 @@
+{
+  "seasonal_factors": {
+    "Jan": 0.5626,
+    "Feb": 0.3921,
+    "Mar": 1.0439,
+    "Apr": 0.7812,
+    "May": 0.896,
+    "Jun": 0.7699,
+    "Jul": 0.7701,
+    "Aug": 0.7362,
+    "Sep": 1.6562,
+    "Oct": 0.8878,
+    "Nov": 1.7514,
+    "Dec": 1.7527
+  },
+  "strongest_month": "Dec",
+  "weakest_month": "Feb",
+  "strongest_factor": 1.7527,
+  "weakest_factor": 0.3921,
+  "trend_strength": 0.489,
+  "seasonal_strength": 0.8673,
+  "mean_absolute_residual": 0.1359,
+  "peak_to_trough": 4.47,
+  "trend_start": 40353.96,
+  "trend_end": 61101.27,
+  "trend_growth": 0.5141,
+  "months_analysed": 48
+}
