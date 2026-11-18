@@ -188,7 +188,11 @@ def _origin_row(
 ) -> dict[str, float] | None:
     """Feature row for forecasting week ``origin_index + horizon``."""
     target_index = origin_index + horizon
-    if target_index >= len(revenue) or origin_index < 104:
+    if origin_index < 104:
+        return None
+    if target_index - 52 < 0 or target_index - 52 >= len(revenue):
+        return None
+    if target_index - 104 < 0 or target_index - 104 >= len(revenue):
         return None
     target_date = start + pd.Timedelta(weeks=target_index)
     level = revenue[origin_index]
@@ -248,7 +252,9 @@ def build_origin_panel(
     if panel.empty:
         raise ValueError("no panel rows were produced; check the origin indices")
     panel["target_week"] = pd.to_datetime(panel["target_week"])
-    panel["y"] = panel["target_index"].astype(int).map(lambda i: revenue[i])
+    panel["y"] = panel["target_index"].astype(int).map(
+        lambda i: revenue[i] if 0 <= i < len(revenue) else float("nan")
+    )
     return panel
 
 

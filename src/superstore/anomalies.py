@@ -223,33 +223,6 @@ def summarise(scored: pd.DataFrame, anomalies: pd.DataFrame) -> dict[str, object
     }
 
 
-def detect_daily_anomalies(frame: pd.DataFrame, threshold: float = 4.0) -> pd.DataFrame:
-    """Day-level check: revenue against the same weekday's trailing median.
-
-    Daily revenue is dominated by whether any order was placed, so the reference
-    is the trailing eight-week median for that weekday rather than a mean.
-    """
-    daily = (
-        frame.groupby(frame["Order Date"].dt.normalize())
-        .agg(revenue=(TARGET, "sum"), orders=("Order ID", "nunique"))
-        .sort_index()
-    )
-    full = daily.reindex(pd.date_range(daily.index.min(), daily.index.max(), freq="D"), fill_value=0)
-    baseline = (
-        full["revenue"]
-        .rolling(56, min_periods=28)
-        .median()
-        .replace(0, np.nan)
-    )
-    ratio = full["revenue"] / baseline
-    centre = float(ratio.dropna().median())
-    mad = float((ratio.dropna() - centre).abs().median())
-    scale = 1.4826 * mad if mad > 0 else float(ratio.dropna().std())
-    full["z_score"] = (ratio - centre) / scale
-    full["is_anomaly"] = full["z_score"].abs() >= threshold
-    return full.reset_index().rename(columns={"index": "date"})
-
-
 def generate_anomalies(
     frame: pd.DataFrame,
     weekly: pd.DataFrame,
@@ -274,7 +247,6 @@ def generate_anomalies(
 
 __all__ = [
     "Z_THRESHOLD",
-    "detect_daily_anomalies",
     "detect_weekly_anomalies",
     "explain_anomalies",
     "generate_anomalies",

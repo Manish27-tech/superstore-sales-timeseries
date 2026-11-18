@@ -250,8 +250,8 @@ def _interval_from_backtest(
         [
             {
                 "horizon": step,
-                "q05": round(float(np.quantile(values, 0.05)), 2),
-                "q95": round(float(np.quantile(values, 0.95)), 2),
+                "q05": round(float(min(np.quantile(values, 0.05), 0.0)), 2),
+                "q95": round(float(max(np.quantile(values, 0.95), 0.0)), 2),
             }
             for step, values in errors.items()
         ]
