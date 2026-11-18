@@ -1,0 +1,51 @@
+{
+  "categories": [
+    "Furniture",
+    "Office Supplies",
+    "Technology"
+  ],
+  "sub_categories": [
+    "Accessories",
+    "Appliances",
+    "Art",
+    "Binders",
+    "Bookcases",
+    "Chairs",
+    "Copiers",
+    "Envelopes",
+    "Fasteners",
+    "Furnishings",
+    "Labels",
+    "Machines",
+    "Paper",
+    "Phones",
+    "Storage",
+    "Supplies",
+    "Tables"
+  ],
+  "regions": [
+    "Central",
+    "East",
+    "South",
+    "West"
+  ],
+  "segments": [
+    "Consumer",
+    "Corporate",
+    "Home Office"
+  ],
+  "ship_modes": [
+    "First Class",
+    "Same Day",
+    "Second Class",
+    "Standard Class"
+  ],
+  "years": [
+    2014,
+    2015,
+    2016,
+    2017
+  ],
+  "date_min": "2014-01-03",
+  "date_max": "2017-12-30"
+}

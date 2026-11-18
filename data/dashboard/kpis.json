@@ -1,0 +1,334 @@
+{
+  "sales": {
+    "rows": 9994,
+    "orders": 5009,
+    "customers": 793,
+    "products": 1862,
+    "date_min": "2014-01-03 00:00:00",
+    "date_max": "2017-12-30 00:00:00",
+    "weeks": 207,
+    "months": 48,
+    "total_sales": 2297200.86,
+    "total_profit": 286397.02,
+    "margin": 0.1247,
+    "mean_order_value": 458.61,
+    "median_order_value": 151.96,
+    "best_month": "November",
+    "best_weekday": "Monday",
+    "quietest_weekday": "Wednesday",
+    "category_share": {
+      "Technology": 0.364,
+      "Furniture": 0.323,
+      "Office Supplies": 0.313
+    },
+    "top_category": "Technology",
+    "top_subcategory": "Phones",
+    "worst_margin_subcategory": "Tables",
+    "best_margin_subcategory": "Labels",
+    "deepest_discount_share": 0.114,
+    "annual_revenue": {
+      "2014": 484247.5,
+      "2015": 470532.51,
+      "2016": 609205.6,
+      "2017": 733215.26
+    },
+    "yoy_growth": {
+      "2015": -0.0283,
+      "2016": 0.2947,
+      "2017": 0.2036
+    },
+    "top_product": "Canon imageCLASS 2200 Advanced Copier",
+    "top_product_revenue": 61599.82,
+    "products_for_80pct": 414,
+    "weekly_mean_revenue": 11052.65,
+    "weekly_max_revenue": 38176.81,
+    "busiest_week": "2014-03-17",
+    "quiet_days_share": 0.1516,
+    "return_line_share": 0.1872,
+    "discount_share": 0.5199,
+    "weekday_line_share": {
+      "Monday": 0.1872,
+      "Tuesday": 0.1107,
+      "Wednesday": 0.0371,
+      "Thursday": 0.1464,
+      "Friday": 0.1819,
+      "Saturday": 0.1656,
+      "Sunday": 0.1711
+    },
+    "weekday_artifact": "Wednesday holds only 4% of order lines, versus 10-19% for other days"
+  },
+  "timeseries": {
+    "seasonal_factors": {
+      "Jan": 0.5626,
+      "Feb": 0.3921,
+      "Mar": 1.0439,
+      "Apr": 0.7812,
+      "May": 0.896,
+      "Jun": 0.7699,
+      "Jul": 0.7701,
+      "Aug": 0.7362,
+      "Sep": 1.6562,
+      "Oct": 0.8878,
+      "Nov": 1.7514,
+      "Dec": 1.7527
+    },
+    "strongest_month": "Dec",
+    "weakest_month": "Feb",
+    "strongest_factor": 1.7527,
+    "weakest_factor": 0.3921,
+    "trend_strength": 0.489,
+    "seasonal_strength": 0.8673,
+    "mean_absolute_residual": 0.1359,
+    "peak_to_trough": 4.47,
+    "trend_start": 40353.96,
+    "trend_end": 61101.27,
+    "trend_growth": 0.5141,
+    "months_analysed": 48
+  },
+  "segments": {
+    "products": 1862,
+    "abc_products": {
+      "A": 413,
+      "B": 489,
+      "C": 960
+    },
+    "abc_revenue_share": {
+      "A": 0.7998,
+      "B": 0.1501,
+      "C": 0.0501
+    },
+    "products_for_80pct": 414,
+    "segments": {
+      "Anchor products": {
+        "products": 511,
+        "revenue_share": 0.6848,
+        "mean_growth": 0.0183,
+        "mean_margin": 0.0559,
+        "mean_volatility": 2.5751
+      },
+      "Rising products": {
+        "products": 502,
+        "revenue_share": 0.2133,
+        "mean_growth": 1.7721,
+        "mean_margin": 0.227,
+        "mean_volatility": 2.8041
+      },
+      "Long tail": {
+        "products": 705,
+        "revenue_share": 0.0592,
+        "mean_growth": -0.1519,
+        "mean_margin": 0.2926,
+        "mean_volatility": 2.7824
+      },
+      "Steady mid-tier": {
+        "products": 144,
+        "revenue_share": 0.0427,
+        "mean_growth": -0.0086,
+        "mean_margin": 0.1111,
+        "mean_volatility": 0.304
+      }
+    },
+    "fastest_growing": [
+      {
+        "product": "Acco 7-Outlet Masterpiece Power Center, Wihtout Fax/Phone Line Protection",
+        "growth": 42.0,
+        "revenue": 3039.5
+      },
+      {
+        "product": "GBC DocuBind TL200 Manual Binding Machine",
+        "growth": 25.667,
+        "revenue": 4322.81
+      },
+      {
+        "product": "Ibico EB-19 Dual Function Manual Binding System",
+        "growth": 12.333,
+        "revenue": 3234.91
+      },
+      {
+        "product": "GBC ProClick 150 Presentation Binding System",
+        "growth": 11.0,
+        "revenue": 3223.0
+      },
+      {
+        "product": "Adjustable Depth Letter/Legal Cart",
+        "growth": 10.9,
+        "revenue": 7730.2
+      }
+    ],
+    "anchor_share": 0.6848
+  },
+  "anomalies": {
+    "weeks_scored": 155,
+    "eligible_weeks": 97,
+    "threshold": 3.5,
+    "min_expected": 2000.0,
+    "min_deviation": 3000.0,
+    "anomalies": 4,
+    "spikes": 4,
+    "dips": 0,
+    "share_of_weeks": 0.0412,
+    "largest_single_order_share": 0.6768,
+    "top_anomalies": [
+      {
+        "week_start": "2016-03-07",
+        "direction": "spike",
+        "z_score": 7.74,
+        "revenue": 22184.76,
+        "expected": 2729.49,
+        "largest_order_value": 4912.59,
+        "largest_product": "High Speed Automatic Electric Letter Opener"
+      },
+      {
+        "week_start": "2017-03-20",
+        "direction": "spike",
+        "z_score": 6.75,
+        "revenue": 27125.48,
+        "expected": 3739.86,
+        "largest_order_value": 13999.96,
+        "largest_product": "Canon imageCLASS 2200 Advanced Copier"
+      },
+      {
+        "week_start": "2016-09-26",
+        "direction": "spike",
+        "z_score": 5.4,
+        "revenue": 25858.35,
+        "expected": 4266.84,
+        "largest_order_value": 17499.95,
+        "largest_product": "Canon imageCLASS 2200 Advanced Copier"
+      },
+      {
+        "week_start": "2015-04-13",
+        "direction": "spike",
+        "z_score": 3.57,
+        "revenue": 12471.88,
+        "expected": 2810.24,
+        "largest_order_value": 1447.65,
+        "largest_product": "Hoover Upright Vacuum With Dirt Cup"
+      }
+    ]
+  },
+  "forecast": {
+    "selected_model": "ridge_regression",
+    "selection_scores": {
+      "ridge_regression": 8039.88,
+      "gradient_boosting": 8581.48
+    },
+    "test": {
+      "rmse": 10408.82,
+      "mae": 9089.42,
+      "mape": 46.37,
+      "bias": -6179.78,
+      "r2": -0.4286,
+      "n": 13,
+      "mase": 0.949
+    },
+    "test_all_models": {
+      "seasonal_naive": {
+        "rmse": 11719.02,
+        "mae": 9576.59,
+        "mape": 53.5,
+        "bias": -3066.81,
+        "r2": -0.8109,
+        "n": 13,
+        "mase": 1.0
+      },
+      "ridge_regression": {
+        "rmse": 10408.82,
+        "mae": 9089.42,
+        "mape": 46.37,
+        "bias": -6179.78,
+        "r2": -0.4286,
+        "n": 13,
+        "mase": 0.949
+      },
+      "gradient_boosting": {
+        "rmse": 9718.48,
+        "mae": 8030.24,
+        "mape": 41.41,
+        "bias": -4320.54,
+        "r2": -0.2454,
+        "n": 13,
+        "mase": 0.839
+      }
+    },
+    "improvement_vs_naive_pct": 11.18,
+    "split": {
+      "test_start": "2017-09-18 00:00:00",
+      "test_end": "2017-12-18 00:00:00",
+      "train_weeks": 194,
+      "test_weeks": 13
+    },
+    "interval_coverage": 0.6154,
+    "feature_importance": [
+      {
+        "feature": "target_week_of_year_cos",
+        "importance_mean": 989.95,
+        "importance_std": 769.13
+      },
+      {
+        "feature": "target_quarter",
+        "importance_mean": 213.18,
+        "importance_std": 151.08
+      },
+      {
+        "feature": "target_lag52",
+        "importance_mean": 141.68,
+        "importance_std": 297.31
+      },
+      {
+        "feature": "target_month_sin",
+        "importance_mean": 111.32,
+        "importance_std": 258.79
+      },
+      {
+        "feature": "horizon",
+        "importance_mean": 109.98,
+        "importance_std": 129.41
+      },
+      {
+        "feature": "origin_roll13",
+        "importance_mean": 0.0,
+        "importance_std": 0.0
+      },
+      {
+        "feature": "target_week_of_year_sin",
+        "importance_mean": -148.19,
+        "importance_std": 429.35
+      },
+      {
+        "feature": "target_month_cos",
+        "importance_mean": -239.05,
+        "importance_std": 635.73
+      }
+    ],
+    "diagnostics": {
+      "weeks": 13,
+      "worst_week": "2017-10-23",
+      "worst_pct_error": 1.1704,
+      "best_week": "2017-11-20",
+      "best_pct_error": -0.182,
+      "mean_pct_error": -0.1025,
+      "median_abs_pct_error": 0.4682,
+      "weeks_within_20pct": 1,
+      "interval_coverage": 0.6154,
+      "interval_nominal": 0.9,
+      "under_predicted_weeks": 10,
+      "horizon_error": {
+        "1": 0.6102,
+        "2": -0.3451,
+        "3": -0.2411,
+        "4": -0.4682,
+        "5": 1.1704,
+        "6": -0.4766,
+        "7": -0.2423,
+        "8": -0.581,
+        "9": -0.182,
+        "10": -0.4969,
+        "11": -0.3121,
+        "12": 0.567,
+        "13": -0.3355
+      }
+    }
+  },
+  "generated_by": "superstore-sales-timeseries"
+}
